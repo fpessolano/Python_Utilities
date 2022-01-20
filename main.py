@@ -1,28 +1,10 @@
 """
-xxx.py: abc
+main.py: for testing and try outs
 """
 
-from pathlib import Path
-from datetime import datetime
+from locks import *
 from time import sleep
-
-
-def detect_new_day(lock_file: Path = Path('.daylock')):
-    day_of_the_year = datetime.now().timetuple().tm_yday
-    new_day = True
-    if lock_file.exists():
-        with open(lock_file, 'r') as file:
-            lock = int(file.read())
-            new_day = lock != day_of_the_year
-            if new_day:
-                with open(lock_file, 'w') as file:
-                    file.write(str(day_of_the_year) + '\n')
-    else:
-        with open(lock_file, 'w') as file:
-            file.write(str(day_of_the_year) + '\n')
-
-    return new_day
-
+from datetime import datetime
 
 if __name__ == "__main__":
     for _ in range(3):
